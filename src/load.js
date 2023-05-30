@@ -4,6 +4,7 @@ export default function loadUI() {
 
   container.appendChild(loadSidebar());
   container.appendChild(loadHeader());
+  container.appendChild(loadContent());
 
   return container;
 
@@ -113,4 +114,50 @@ function loadHeader() {
 
   return header;
 
+};
+
+function loadContent() {
+  const content = document.createElement('div');
+  content.classList.add('content');
+
+  const projects = document.createElement('div');
+  projects.classList.add('projects');
+  let projectHeader = document.createElement('h2');
+  projectHeader.textContent = 'Your Projects';
+  projects.appendChild(projectHeader);
+
+  const cards = document.createElement('div');
+  cards.classList.add('cards');
+
+  projects.appendChild(cards);
+
+  const otherCards = document.createElement('div');
+  otherCards.classList.add('other-projects');
+
+  let announceHeader = document.createElement('h2');
+  announceHeader.textContent = 'Anouncements';
+  otherCards.appendChild(announceHeader);
+  const announcements = document.createElement('div');
+  announcements.classList.add('announcements');
+  announcements.textContent = "Hold for Announcements";
+
+  // add dummy announcement content
+
+  otherCards.appendChild(announcements);
+
+  let trendingHeader = document.createElement('h2');
+  trendingHeader.textContent = 'Trending';
+  otherCards.appendChild(trendingHeader);
+  const trending = document.createElement('div');
+  trending.classList.add('trending');
+  trending.textContent = "Hold for Trending";
+
+  // add dummy trending content
+
+  otherCards.appendChild(trending);
+
+  content.appendChild(projects);
+  content.appendChild(otherCards);
+
+  return content;
 };
