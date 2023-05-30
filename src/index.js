@@ -3,9 +3,7 @@ import './style.css';
 import loadUI from './load.js';
 import addCard from './card.js';
 
-// const container = document.querySelector('.container')
-
-// container.appendChild(loadUI());
+// Create array of cards to store new reqs
 
 loadUI();
 addCard();

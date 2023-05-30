@@ -1,3 +1,5 @@
+import addCard from './card.js';
+
 export default function loadUI() {
 
   const container = document.querySelector('.container')
@@ -91,8 +93,8 @@ function loadHeader() {
   let newBtn = document.createElement("button");
   newBtn.classList.add("button");
   newBtn.textContent ="New Req";
+  newBtn.addEventListener("click", addCard, false);
   
-
   let profile = document.createElement("profile");
   profile.classList.add("profile");
 
