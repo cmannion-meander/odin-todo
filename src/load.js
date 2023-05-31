@@ -2,7 +2,8 @@ import addCard from './card.js';
 
 export default function loadUI() {
 
-  const container = document.querySelector('.container')
+  const container = document.querySelector('.container');
+  removeAllChildNodes(container);
 
   container.appendChild(loadSidebar());
   container.appendChild(loadHeader());
@@ -33,6 +34,7 @@ function loadSidebar() {
 
   const home = document.createElement("li");
   home.textContent = 'Home';
+  home.addEventListener("click", loadUI, false);
   topMenu.appendChild(home);
   const profile = document.createElement("li");
   profile.textContent = 'Profile';
@@ -162,4 +164,10 @@ function loadContent() {
   content.appendChild(otherCards);
 
   return content;
+};
+
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+      parent.removeChild(parent.firstChild);
+  }
 };

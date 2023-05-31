@@ -6,6 +6,7 @@ module.exports = {
     index: './src/index.js',
     load: './src/load.js',
     card: './src/card.js',
+    todos: './src/todos.js',
   },
   devtool: 'inline-source-map',
   devServer: {

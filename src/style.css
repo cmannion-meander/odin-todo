@@ -171,3 +171,16 @@ button {
 .card p {
   font-weight: 400;
 }
+
+.todo-items {
+  background-color: #fafafa;
+  border-width: 0px 0px 0px 10px;
+  border-style: solid;
+  border-color: #00c2cb;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px 1px grey;
+  display: grid;
+  grid-template-rows: .5fr 3fr .5fr;
+  padding: 5px;
+  max-height: 80vh;
+}
