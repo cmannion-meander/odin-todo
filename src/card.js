@@ -1,14 +1,12 @@
 export default function addCard() {
 
-    let newProject = new Project("Sample Project", "Sample Description", [new Todo("one", "high", false)]);
+    let newProject = new Project("Sample Project", "Sample Description", [new Todo("one", "high", false), new Todo("two", "high", true), new Todo("three", "high", false)]);
 
     // console.log(newProject);
 
     // console.log(newProject.showTodos());
 
     projects.push(newProject);
-
-    console.log(projects);
 
     return renderCard(projects);
 
@@ -21,7 +19,7 @@ function renderCard(projects) {
     removeAllChildNodes(cards);
 
     for (let i = 0; i < projects.length; i++) {
-        let todoItem = document.createElement("li");
+        // let todoItem = document.createElement("li");
 
         let card = document.createElement('div');
         card.setAttribute('class','card');
@@ -87,13 +85,13 @@ class Todo {
         this.priority = priority;
         this.complete = complete;
     };
-    updateTask() {
-        if (this.complete === false) {
-            this.complete = true;
-        } else {
-            this.complete = false;
-        };
-    };
+    // updateTask() {
+    //     if (this.complete === false) {
+    //         this.complete = true;
+    //     } else {
+    //         this.complete = false;
+    //     };
+    // };
 };
 
 function displayTodoList(projectName) {
@@ -113,20 +111,55 @@ function displayTodoList(projectName) {
         }, false);
         todoItems.appendChild(close);
 
-    const todoList = document.createElement("ul");
+    let todoDesc = document.createElement('p');
+    todoDesc.textContent = projectName.description;
+    todoItems.appendChild(todoDesc);
+
+    const todoList = document.createElement("div");
     todoList.setAttribute('class','todo-list');
+
+    console.log(projectName.todos);
 
 
     for (let i = 0; i < projectName.todos.length; i++) {
-        let todoItem = document.createElement("li");
-        todoItem.textContent = `${projectName.todos[i].todoName}`;
-        todoItem.setAttribute('contenteditable', 'true');
-        todoItem.addEventListener("input", e => editTodo(e, projectName.todos, i));
-        console.log(projectName.todos[i]);
+        let todoItem = document.createElement("div");
+        todoItem.classList.add("todo-list-item");
+
+        let todoCheckBox = document.createElement("INPUT");
+        todoCheckBox.setAttribute("type", "checkbox");
+        todoCheckBox.checked = projectName.todos[i].complete;
+        todoCheckBox.classList.add("todo-complete");
+        todoCheckBox.addEventListener('click', e => toggleCheckBox(e, projectName, i));
+
+        let todoTitle = document.createElement("div");
+        todoTitle.classList.add("todo-title");
+        todoTitle.textContent = `${projectName.todos[i].todoName}`;
+        todoTitle.setAttribute('contenteditable', 'true');
+        todoTitle.addEventListener("input", e => editTodoTitle(e, projectName.todos, i));
+
+        let delTodo = document.createElement("img");
+        delTodo.src = '../assets/close.svg';
+        delTodo.setAttribute('class','card-icon');
+        delTodo.addEventListener("click", e => deleteTodo(e, projectName, i));
+
+        todoItem.appendChild(todoCheckBox);
+        todoItem.appendChild(todoTitle);
+        todoItem.appendChild(delTodo);
+
         todoList.append(todoItem);
     };
-
+    
     todoItems.appendChild(todoList);
+
+    const newTodo = document.createElement("div");
+    newTodo.classList.add('new-todo');
+    newTodo.textContent = ('Add New Action Item');
+    newTodo.addEventListener('click', e => addTodo(projectName));
+
+    console.log(projectName.todos);
+
+
+    todoItems.appendChild(newTodo);
 
     content.appendChild(todoItems);
 
@@ -143,11 +176,27 @@ function editDescription(e, projectArray, i) {
     projectArray[i].description = newText;
 };
 
-function editTodo(e, todoList, i) {
-    const newText = e.target.textContent;
-    todoList[i] = newText;
+function addTodo(projectName) {
+    const newTodo = new Todo("enter action", "high", false);
+    projectName.todos.push(newTodo);
+    displayTodoList(projectName);
 };
 
+function deleteTodo(e, projectName, i) {
+    let todoList = projectName.todos;
+    todoList.splice(i, 1);
+    displayTodoList(projectName);
+};
+
+function toggleCheckBox(e, projectName, i) {
+    let todoItem = projectName.todos[i];
+    if (todoItem.complete == true) {
+        todoItem.complete = false;
+    } else {
+        todoItem.complete = true;
+    };
+    displayTodoList(projectName);
+};
 
 // Other functions
 function reloadCards(projectList) {

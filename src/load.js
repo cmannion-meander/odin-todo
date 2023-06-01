@@ -34,7 +34,7 @@ function loadSidebar() {
 
   const home = document.createElement("li");
   home.textContent = 'Home';
-  home.addEventListener("click", loadUI, false);
+  // home.addEventListener("click", loadUI, false);
   topMenu.appendChild(home);
   const profile = document.createElement("li");
   profile.textContent = 'Profile';
