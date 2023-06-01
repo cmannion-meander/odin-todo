@@ -127,7 +127,7 @@ function loadContent() {
   const projects = document.createElement('div');
   projects.classList.add('projects');
   let projectHeader = document.createElement('h2');
-  projectHeader.textContent = 'Your Projects';
+  projectHeader.textContent = 'Active Requisitions';
   projects.appendChild(projectHeader);
 
   const cards = document.createElement('div');
@@ -138,27 +138,72 @@ function loadContent() {
   const otherCards = document.createElement('div');
   otherCards.classList.add('other-projects');
 
-  let announceHeader = document.createElement('h2');
-  announceHeader.textContent = 'Anouncements';
-  otherCards.appendChild(announceHeader);
-  const announcements = document.createElement('div');
-  announcements.classList.add('announcements');
-  announcements.textContent = "Hold for Announcements";
+  otherCards.innerHTML = `
+              <h2>Team Announcements</h2>
+                <div class="announcements">
+                    <ul>
+                        <li>
+                            <h3>Source-a-thon</h3>
+                            <p>Attention team: We are excited to announce that the team sourcing project will kick off on Monday, so get ready to collaborate and source some top talent!</p>
+                        </li>
+                        <hr class="solid">
+                        <li>
+                            <h3>Welcome Bruce to the team!</h3>
+                            <p>Join us in giving a warm welcome to Bruce, who joins our product team from Google, bringing valuable expertise and insights to our organization.</p>
+                        </li>
+                        <hr class="solid">
+                        <li>
+                            <h3>New Employer Branding Resource</h3>
+                            <p>We are proud to share that our recent feature on TechCrunch can now be utilized as a powerful employer branding resource, showcasing our company's innovation and culture.</p>
+                        </li>
+                    </ul>
+                </div>
+                <h2>Latest Hiring Activity</h2>
+                <div class="trending">
+                    <img src="../assets/profile1.jpg" alt="" class="profile-pic-team">
+                    <div class="users">
+                        <h3>Roger</h3>
+                        <p>Product Marketing Manager</p>
+                    </div>
+                    <img src="../assets/profile2.jpg" alt="" class="profile-pic-team">
+                    <div class="users">
+                        <h3>Bruce</h3>
+                        <p>Senior Product Manager</p>
+                    </div>
+                    <img src="../assets/profile3.jpg" alt="" class="profile-pic-team">
+                    <div class="users">
+                        <h3>Petra</h3>
+                        <p>Director, Software Engineering</p>
+                    </div>
+                    <img src="../assets/profile4.jpg" alt="" class="profile-pic-team">
+                    <div class="users">
+                        <h3>Logan</h3>
+                        <p>Account Executive</p>
+                    </div>
+                </div>
+  `;
 
-  // add dummy announcement content
+  // let announceHeader = document.createElement('h2');
+  // announceHeader.textContent = 'Anouncements';
+  // otherCards.appendChild(announceHeader);
+  // const announcements = document.createElement('div');
+  // announcements.classList.add('announcements');
+  // announcements.textContent = "Hold for Announcements";
 
-  otherCards.appendChild(announcements);
+  // // add dummy announcement content
 
-  let trendingHeader = document.createElement('h2');
-  trendingHeader.textContent = 'Trending';
-  otherCards.appendChild(trendingHeader);
-  const trending = document.createElement('div');
-  trending.classList.add('trending');
-  trending.textContent = "Hold for Trending";
+  // otherCards.appendChild(announcements);
 
-  // add dummy trending content
+  // let trendingHeader = document.createElement('h2');
+  // trendingHeader.textContent = 'Trending';
+  // otherCards.appendChild(trendingHeader);
+  // const trending = document.createElement('div');
+  // trending.classList.add('trending');
+  // trending.textContent = "Hold for Trending";
 
-  otherCards.appendChild(trending);
+  // // add dummy trending content
+
+  // otherCards.appendChild(trending);
 
   content.appendChild(projects);
   content.appendChild(otherCards);

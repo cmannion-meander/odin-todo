@@ -97,8 +97,18 @@ li {
 }
 
 .profile-pic {
+  object-fit: cover;
   width: 45px;
+  height: 45px;
   border-radius: 50%;
+}
+
+.profile-pic-team {
+  object-fit: cover;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  justify-self: flex-end;
 }
 
 .headerTools {
@@ -112,7 +122,7 @@ li {
 button {
   color: #f6f6f6;
   background-color: #003060;
-  border-radius: 20px;
+  border-radius: 15px;
   border-width: 0px;
   height: 35px;
   font-weight: 700;
@@ -152,11 +162,19 @@ button {
   box-shadow: 2px 2px 2px 1px grey;
   display: grid;
   grid-template-rows: .5fr 3fr .5fr;
+  grid-template-columns: 4fr 1fr;
   padding: 5px;
   max-height: 25vh;
 }
 
+.card-description {
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
 .card-settings {
+  grid-column-start: 1;
+  grid-column-end: 3;
   display: flex;
   justify-content: flex-end;
   flex-direction: row;
@@ -180,9 +198,16 @@ button {
   border-radius: 5px;
   box-shadow: 2px 2px 2px 1px grey;
   display: grid;
-  grid-template-rows: .5fr 3fr .5fr;
+  grid-template-rows: 1fr 1fr 8fr;
+  grid-template-columns: 4fr 1fr;
   padding: 5px;
-  max-height: 80vh;
+  width: 80%;
+}
+
+.todo-list {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  gap: 15px;
 }
 
 .todo-list-item {
@@ -193,12 +218,56 @@ button {
   border-radius: 5px;
   box-shadow: 2px 2px 2px 1px grey;
   display: grid;
-  grid-template-rows: .5fr 3fr .5fr;
+  grid-template-columns: 1fr 8fr 1fr 1fr;
   padding: 5px;
-  max-height: 80vh;
+  margin: 10px;
+  max-height: 10vh;
+  justify-items: left;
+  align-items: center;
 }
 
 .todo-complete {
   width: 25px;
   height: 25px;
+}
+
+.new-todo {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  color: #f6f6f6;
+  background-color: #003060;
+  border-radius: 15px;
+  border-width: 0px;
+  height: 35px;
+  font-weight: 700;
+}
+
+.other-projects {
+  display: grid;
+  grid-template-rows: 1fr 8fr 1fr 8fr;
+  gap: 15px;
+}
+
+.announcements,
+.trending {
+    background-color: #fafafa;
+    border-radius: 5px;
+    box-shadow: 2px 2px 2px 1px grey;
+}
+
+.announcements ul {
+  display: grid;
+  grid-template-rows: auto;
+  font-size: 14px;
+  padding: 10px;
+}
+
+.trending {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  text-align: left;
+  align-items: center;
 }

@@ -1,16 +1,20 @@
 export default function addCard() {
 
-    let newProject = new Project("Sample Project", "Sample Description", [new Todo("one", "high", false), new Todo("two", "high", true), new Todo("three", "high", false)]);
+    // let newProject = new Project("Sample Project", "Sample Description", [new Todo("one", "high", false), new Todo("two", "high", true), new Todo("three", "high", false)]);
 
     // console.log(newProject);
 
     // console.log(newProject.showTodos());
 
-    projects.push(newProject);
+    // projects.push(newProject);
+
+    generateNewProject();
 
     return renderCard(projects);
 
     };
+
+let projects = [];
 
 function renderCard(projects) {
 
@@ -29,9 +33,16 @@ function renderCard(projects) {
         cardTitle.setAttribute('contenteditable', 'true');
         cardTitle.addEventListener("input", e => editTitle(e, projects, i));
         card.appendChild(cardTitle);
+
+        let deleteCard = document.createElement("img");
+        deleteCard.src = '../assets/trash-can-outline.svg';
+        deleteCard.setAttribute('class','card-icon');
+        deleteCard.addEventListener("click", e => deleteProject(e, projects, i));
+        card.appendChild(deleteCard);
     
         let cardDesc = document.createElement('p');
         cardDesc.textContent = projects[i].description;
+        cardDesc.classList.add('card-description');
         cardDesc.setAttribute('contenteditable', 'true');
         cardDesc.addEventListener("input", e => editDescription(e, projects, i));
         card.appendChild(cardDesc);
@@ -47,10 +58,11 @@ function renderCard(projects) {
         let watch = document.createElement("img");
         watch.src = '../assets/eye-plus-outline.svg';
         watch.setAttribute('class','card-icon');
+        watch.addEventListener("click", generateSampleReqs, false);
         cardSettings.appendChild(watch);
     
         let fork = document.createElement("img");
-        fork.src = '../assets/source-fork.svg';
+        fork.src = '../assets/view-list-outline.svg';
         fork.setAttribute('class','card-icon');
         fork.addEventListener("click", function() {
             displayTodoList(projects[i]);
@@ -65,7 +77,7 @@ function renderCard(projects) {
     return cards;
 };
 
-let projects = [];
+
 
 class Project {
     constructor(title, description, todos) {
@@ -112,14 +124,12 @@ function displayTodoList(projectName) {
         todoItems.appendChild(close);
 
     let todoDesc = document.createElement('p');
+    todoDesc.classList.add('card-description');
     todoDesc.textContent = projectName.description;
     todoItems.appendChild(todoDesc);
 
     const todoList = document.createElement("div");
     todoList.setAttribute('class','todo-list');
-
-    console.log(projectName.todos);
-
 
     for (let i = 0; i < projectName.todos.length; i++) {
         let todoItem = document.createElement("div");
@@ -137,13 +147,18 @@ function displayTodoList(projectName) {
         todoTitle.setAttribute('contenteditable', 'true');
         todoTitle.addEventListener("input", e => editTodoTitle(e, projectName.todos, i));
 
+        let startTodo = document.createElement("img");
+        startTodo.src = '../assets/pencil-outline.svg';
+        startTodo.setAttribute('class','card-icon');
+
         let delTodo = document.createElement("img");
-        delTodo.src = '../assets/close.svg';
+        delTodo.src = '../assets/trash-can-outline.svg';
         delTodo.setAttribute('class','card-icon');
         delTodo.addEventListener("click", e => deleteTodo(e, projectName, i));
 
         todoItem.appendChild(todoCheckBox);
         todoItem.appendChild(todoTitle);
+        todoItem.appendChild(startTodo);
         todoItem.appendChild(delTodo);
 
         todoList.append(todoItem);
@@ -156,14 +171,16 @@ function displayTodoList(projectName) {
     newTodo.textContent = ('Add New Action Item');
     newTodo.addEventListener('click', e => addTodo(projectName));
 
-    console.log(projectName.todos);
-
-
     todoItems.appendChild(newTodo);
 
     content.appendChild(todoItems);
 
     return content;
+};
+
+function deleteProject(e, projectArray, i) {
+    projectArray.splice(i, 1);
+    renderCard(projectArray);
 };
 
 function editTitle(e, projectArray, i) {
@@ -207,7 +224,7 @@ function reloadCards(projectList) {
     const projects = document.createElement('div');
     projects.classList.add('projects');
     let projectHeader = document.createElement('h2');
-    projectHeader.textContent = 'Your Projects';
+    projectHeader.textContent = 'Active Requisitions';
     projects.appendChild(projectHeader);
 
     const cards = document.createElement('div');
@@ -218,27 +235,50 @@ function reloadCards(projectList) {
     const otherCards = document.createElement('div');
     otherCards.classList.add('other-projects');
 
-    let announceHeader = document.createElement('h2');
-    announceHeader.textContent = 'Anouncements';
-    otherCards.appendChild(announceHeader);
-    const announcements = document.createElement('div');
-    announcements.classList.add('announcements');
-    announcements.textContent = "Hold for Announcements";
-
-    // add dummy announcement content
-
-    otherCards.appendChild(announcements);
-
-    let trendingHeader = document.createElement('h2');
-    trendingHeader.textContent = 'Trending';
-    otherCards.appendChild(trendingHeader);
-    const trending = document.createElement('div');
-    trending.classList.add('trending');
-    trending.textContent = "Hold for Trending";
-
-    // add dummy trending content
-
-    otherCards.appendChild(trending);
+    otherCards.innerHTML = `
+    <h2>Team Announcements</h2>
+      <div class="announcements">
+          <ul>
+              <li>
+                  <h3>Source-a-thon</h3>
+                  <p>Attention team: We are excited to announce that the team sourcing project will kick off on Monday, so get ready to collaborate and source some top talent!</p>
+              </li>
+              <hr class="solid">
+              <li>
+                  <h3>Welcome Bruce to the team!</h3>
+                  <p>Join us in giving a warm welcome to Bruce, who joins our product team from Google, bringing valuable expertise and insights to our organization.</p>
+              </li>
+              <hr class="solid">
+              <li>
+                  <h3>New Employer Branding Resource</h3>
+                  <p>We are proud to share that our recent feature on TechCrunch can now be utilized as a powerful employer branding resource, showcasing our company's innovation and culture.</p>
+              </li>
+          </ul>
+      </div>
+      <h2>Latest Hiring Activity</h2>
+      <div class="trending">
+          <img src="../assets/profile1.jpg" alt="" class="profile-pic-team">
+          <div class="users">
+              <h3>Roger</h3>
+              <p>Product Marketing Manager</p>
+          </div>
+          <img src="../assets/profile2.jpg" alt="" class="profile-pic-team">
+          <div class="users">
+              <h3>Bruce</h3>
+              <p>Senior Product Manager</p>
+          </div>
+          <img src="../assets/profile3.jpg" alt="" class="profile-pic-team">
+          <div class="users">
+              <h3>Petra</h3>
+              <p>Director, Software Engineering</p>
+          </div>
+          <img src="../assets/profile4.jpg" alt="" class="profile-pic-team">
+          <div class="users">
+              <h3>Logan</h3>
+              <p>Account Executive</p>
+          </div>
+      </div>
+`;
 
     content.appendChild(projects);
     content.appendChild(otherCards);
@@ -252,4 +292,48 @@ function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
+};
+
+function generateNewProject() {
+    let newProject = new Project("Enter Requisition Name", "Enter Summary Job Description", []);
+    newProject.todos = generateRecruitingTodos();
+
+    projects.push(newProject);
+};
+
+function generateRecruitingTodos() {
+    let todoList = [
+        new Todo("Role Kickoff", "high", false), 
+        new Todo("Define Interview Scorecard", "high", false), 
+        new Todo("Plan Interviews", "high", false),
+        new Todo("Create Interview Process", "high", false), 
+        new Todo("Source & Interview Candidates", "high", false), 
+        new Todo("Generate Offer Letter", "high", false)
+    ];
+    return todoList;
+}
+
+function generateSampleReqs() {
+    let growth = new Project("Growth Hacker", "Join our dynamic startup and revolutionize user acquisition and retention strategies through data-driven experimentation and innovative marketing campaigns.", []);
+    growth.todos = generateRecruitingTodos();
+
+    let fullstack = new Project("Full Stack Developer", "Be part of a cutting-edge startup and shape the future of our platform by designing and implementing scalable and robust software solutions across the entire technology stack.", []);
+    fullstack.todos = generateRecruitingTodos();
+
+    let customer = new Project("Customer Success Manager", "Help drive customer satisfaction and retention in our fast-growing startup by providing exceptional support, building relationships, and implementing success strategies.", []);
+    customer.todos = generateRecruitingTodos();
+
+    let product = new Project("Product Designer", "Join our talented team of designers and craft intuitive and visually stunning user experiences for our innovative product, making a meaningful impact on how users interact with our platform.", []);
+    product.todos = generateRecruitingTodos();
+
+    let ops = new Project("Operations Associate", "Play a crucial role in the day-to-day operations of our startup, ensuring smooth processes and efficiency across various departments, and contributing to our overall success and growth.", []);
+    ops.todos = generateRecruitingTodos();
+
+    projects.push(growth);
+    projects.push(fullstack);
+    projects.push(customer);
+    projects.push(product);
+    projects.push(ops);
+
+    renderCard(projects);
 };
